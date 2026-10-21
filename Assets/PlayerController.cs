@@ -9,6 +9,12 @@ public class PlayerController : MonoBehaviour
   [SerializeField]
   float walkSpeed = 50;
 
+  [SerializeField]
+  Transform groundChecker;
+
+  [SerializeField]
+  LayerMask groundLayer;
+
   float movementX = 0;
 
   Rigidbody2D rb;
@@ -25,7 +31,10 @@ public class PlayerController : MonoBehaviour
 
   void OnJump(InputValue value)
   {
-    rb.AddForce(Vector2.up * jumpForce);
+    if (Physics2D.OverlapPoint(groundChecker.position, groundLayer))
+    {
+      rb.AddForce(Vector2.up * jumpForce);
+    }
   }
 
   void OnMove(InputValue value)
